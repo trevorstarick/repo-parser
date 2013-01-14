@@ -1,19 +1,18 @@
 import json
 import urllib2
+import codecs
 x = 0
 
 github_login = raw_input('Please enter your GitHub login: ')
 if github_login is '':
 	github_login = 'trevorstarick'
 
-html = open(''+github_login+'.html', 'w')
+html = codecs.open(''+github_login+'.html', 'w', "utf-8")
 
 userInfo = urllib2.urlopen('https://api.github.com/users/'+github_login)
-repos = urllib2.urlopen('https://api.github.com/users/'+github_login+'/repos')
-
 decoded_userInfo = json.load(userInfo)
+repos = urllib2.urlopen('https://api.github.com/users/'+github_login+'/repos?sort=pushed&per_page='+str(decoded_userInfo["public_repos"]))
 decoded_repos = json.load(repos)
-
 html.write('<!DOCTYPE html>\n')
 html.write('<html lang="en">\n')
 html.write('	<head>\n')
@@ -48,7 +47,7 @@ html.write('          <span class="icon-bar"></span>\n')
 html.write('          <span class="icon-bar"></span>\n')
 html.write('          <span class="icon-bar"></span>\n')
 html.write('        </a>\n')
-html.write('        <a class="brand" href="http://github.com/'+github_login+'/">'+github_login+'</a>\n')
+html.write('        <img src="'+decoded_userInfo["avatar_url"]+'" align="left" height="32px" width="32px" style="padding-top:4px;padding-right:4px;padding-left:2px"><a class="brand" href="http://github.com/'+github_login+'/">'+github_login+'</a>\n')
 html.write('        <div class="nav-collapse collapse">\n')
 html.write('          <ul class="nav">\n')
 html.write('            <li class="active"><a href="#">Home</a></li>\n')
