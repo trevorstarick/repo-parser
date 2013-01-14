@@ -1,11 +1,12 @@
 import json
 import urllib2
 x = 0
-html = open('index.html', 'w')
 
 github_login = raw_input('Please enter your GitHub login: ')
 if github_login is '':
-    github_login = 'trevorstarick'
+	github_login = 'trevorstarick'
+
+html = open(''+github_login+'.html', 'w')
 
 userInfo = urllib2.urlopen('https://api.github.com/users/'+github_login)
 repos = urllib2.urlopen('https://api.github.com/users/'+github_login+'/repos')
@@ -17,7 +18,7 @@ html.write('<!DOCTYPE html>\n')
 html.write('<html lang="en">\n')
 html.write('	<head>\n')
 html.write('    <meta charset="utf-8">\n')
-html.write('	<title>'+github_login+"\\'"+'s projects</title>\n')
+html.write('	<title>'+github_login+"\'"+'s projects</title>\n')
 html.write('  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n')
 html.write('  <meta name="description" content="">\n')
 html.write('  <meta name="author" content="">\n')
@@ -47,7 +48,7 @@ html.write('          <span class="icon-bar"></span>\n')
 html.write('          <span class="icon-bar"></span>\n')
 html.write('          <span class="icon-bar"></span>\n')
 html.write('        </a>\n')
-html.write('        <a class="brand" href="#">'+github_login+'</a>\n')
+html.write('        <a class="brand" href="http://github.com/'+github_login+'/">'+github_login+'</a>\n')
 html.write('        <div class="nav-collapse collapse">\n')
 html.write('          <ul class="nav">\n')
 html.write('            <li class="active"><a href="#">Home</a></li>\n')
@@ -66,13 +67,13 @@ for x in range(0, decoded_userInfo["public_repos"]):
 	html.write('<h3><a href="'+decoded_repos[x]["html_url"]+'">'+decoded_repos[x]["name"]+'</a></h3>\n')
 	if decoded_repos[x]["description"] is not None:
 		print "Description: "+decoded_repos[x]["description"]
-		html.write('<h4>Description: '+decoded_repos[x]["description"]+'</h4>\n')
+		html.write('<h4>Description: <small>'+decoded_repos[x]["description"]+'</small></h4>\n')
 	else:
 		print "Description: "
 		html.write('<h4>Description: </h4>')
 	if decoded_repos[x]["language"] is not None:
 		print "Language: "+decoded_repos[x]["language"]
-		html.write('<h4>'+decoded_repos[x]["language"]+'</h4>\n')
+		html.write('<h4>Language: <small>'+decoded_repos[x]["language"]+'</small></h4>\n')
 	else:
 		print "Language: "
 		html.write('<h4>Language: </h4>')
