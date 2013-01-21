@@ -13,51 +13,61 @@ userInfo = urllib2.urlopen('https://api.github.com/users/'+github_login)
 decoded_userInfo = json.load(userInfo)
 repos = urllib2.urlopen('https://api.github.com/users/'+github_login+'/repos?sort=pushed&per_page='+str(decoded_userInfo["public_repos"]))
 decoded_repos = json.load(repos)
-html.write('<!DOCTYPE html>\n')
-html.write('<html lang="en">\n')
-html.write('	<head>\n')
-html.write('    <meta charset="utf-8">\n')
-html.write('	<title>'+github_login+"\'"+'s projects</title>\n')
-html.write('  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n')
-html.write('  <meta name="description" content="">\n')
-html.write('  <meta name="author" content="">\n')
-html.write('\n')
-html.write('  <!-- Le styles -->\n')
-html.write('  <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">\n')
-html.write('  <style>\n')
-html.write('    body {\n')
-html.write('      padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */\n')
-html.write('    }\n')
-html.write('  </style>\n')
-html.write('  <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">\n')
-html.write('\n')
-html.write('  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->\n')
-html.write('  <!--[if lt IE 9]>\n')
-html.write('    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>\n')
-html.write('  <![endif]-->\n')
-html.write('</head>\n')
-html.write('\n')
-html.write('<body>\n')
-html.write('\n')
-html.write('  <div class="navbar navbar-inverse navbar-fixed-top">\n')
-html.write('    <div class="navbar-inner">\n')
-html.write('      <div class="container">\n')
-html.write('        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\n')
-html.write('          <span class="icon-bar"></span>\n')
-html.write('          <span class="icon-bar"></span>\n')
-html.write('          <span class="icon-bar"></span>\n')
-html.write('        </a>\n')
-html.write('        <img src="'+decoded_userInfo["avatar_url"]+'" align="left" height="32px" width="32px" style="padding-top:4px;padding-right:4px;padding-left:2px"><a class="brand" href="http://github.com/'+github_login+'/">'+github_login+'</a>\n')
-html.write('        <div class="nav-collapse collapse">\n')
-html.write('          <ul class="nav">\n')
-html.write('            <li class="active"><a href="#">Home</a></li>\n')
-html.write('          </ul>\n')
-html.write('        </div><!--/.nav-collapse -->\n')
-html.write('      </div>\n')
-html.write('    </div>\n')
-html.write('  </div>\n')
-html.write('\n')
-html.write('  <div class="container">\n')
+html.write('''
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Project name</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">''')
 
 print ""
 
@@ -79,28 +89,27 @@ for x in range(0, decoded_userInfo["public_repos"]):
 	print ""
 	html.write('<hr />\n')
 	
-html.write('	</div> <!-- /container -->\n')
-html.write('\n')
-html.write('	    <!-- Le javascript\n')
-html.write('	    ================================================== -->\n')
-html.write('	    <!-- Placed at the end of the document so the pages load faster -->\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-scrollspy.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-button.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-carousel.js"></script>\n')
-html.write('	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-typeahead.js"></script>\n')
-html.write('\n')
-html.write('	  </body>\n')
-html.write('	</html>\n')
+html.write('''	    </div> <!-- /container -->
 
+	    <!-- Le javascript
+	    ================================================== -->
+	    <!-- Placed at the end of the document so the pages load faster -->
+	    <script src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-scrollspy.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-button.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-carousel.js"></script>
+	    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-typeahead.js"></script>
+
+	  </body>
+	</html>''')
 	
 """
 Notes:
